@@ -1,3 +1,10 @@
+// https://www.ibm.com/support/knowledgecenter/SS9H2Y_7.7.0/com.ibm.dp.doc/apisforobjects.htmls
+// A session object represents a transaction flow in a GatewayScript application to access input, output, and other contexts that are visible to the service.
+// Because a session object is a property of the Global object, you can use session objects, through the session variable, 
+// without requiring a particular module (like service metadata).
+// No require('session') statement is required.
+
+
 import { APIConnection }  from './APIConnection'
 
 // define the urlopen options
@@ -14,10 +21,10 @@ const options = {
 };
 
 const APIConn =  new APIConnection();
-APIConn.OpenConnection(options)
+APIConn.OpenConnectionWithServer(options)
 .then((response) => {
     if(response && response.statusCode == 200){
-        response.readAsBuffer((error, responseData) => {
+        response.readAsJSON((error, responseData) => {
             if (error) {
                 // error while reading response or transferring data to Buffer
                 session.output.write("readAsBuffer error: " + JSON.stringify(error));
